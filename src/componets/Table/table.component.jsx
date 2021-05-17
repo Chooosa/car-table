@@ -67,44 +67,40 @@ const Table = () => {
 
 
    const onGroup = (field) => {
-      // let arr = [...data]
-      // let newArr = arr.filter((name) => {})
-      // let name = ''
-      // let count = 0
+      let arr = [...data]
+      let newArr = []
+      let name = ''
+      let count = 0
 
+      arr.map((item, index, newArray) => {
+            name = item[field].trim()
+            count=0
+            newArr.forEach((el) => {
+               if (name === el[field].trim()) {
+                  count++
+               }
+            })
 
-      // // const temp = arr.reduce((prevValue, elem) => {
+            if(count === 0) {
+               arr.map((elem, i) => {
+                  if (name === elem[field].trim()) {
+                     newArr.push(elem)
+                  }
+               })
+            }
+      })
 
-      // // })
-
-      // arr.map((item, index, newArray) => {
-      //    name = item[field]
-      //    // console.log('name', name)
-
-      //    newArray.map((elem) => {
-      //       // console.log('name', name , 'elem[field]', elem[field], 'name === elem[field]', name === elem[field])
-      //       if (name === elem[field]) {
-
-      //          newArr.push(elem)
-      //          count++
-      //       }
-      //    })
-      // })
-
-      // console.log('newArr', newArr)
+      return newArr
    }
 
    useEffect(() => {
       let arr = []
       switch (group) {
          case 'mark':
-            // arr.sort(onSorting('mark'))
-            // onGroup
-            onGroup('mark')
+            arr = onGroup('mark')
             break;
          case 'type':
-            // arr.sort(onSorting('type'))
-            onGroup('type')
+            arr = onGroup('type')
             break;
          case 'none':
             arr = [...initialData]
